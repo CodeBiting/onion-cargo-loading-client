@@ -18,72 +18,48 @@
         <section>
             <h3>Products</h3>
             <ul>
-                <div>
-                    <li></li>
+                <div v-for="(product, index) in allProducts" :key="index">
+                    <li>
+                        <p>{{ product.code }}</p>
+                    </li>
                 </div>
             </ul>
-            <form>
-                <label for="products">Select a file:</label>
-                <input type="file" id="products" name="products" accept=".csv">
-                <br>
-                <button>Import</button>
-            </form>
+            <label for="products">Select a file:</label>
+            <input type="file" id="products" name="products" accept=".csv" @change="handleFileUpload">
+            <!--<button @click="readCSVFile()">Import</button>-->
         </section>
         <br>
         <button onclick="">Search</button>
     </div>
 </template>
 
-<script setup>
-    let allContainer = await useFetch('http://localhost:8080/v1/container')
+<script setup> 
+    let allContainer = await useFetch('http://localhost:8080/v1/container');
     allContainer = allContainer.data._value.data;
-    console.log(allContainer);
-    const fileInputRef = ref(null);
-
-    function readCSVFile(){
-        var files = document.querySelector('#products').files;
-
-        if(files.length > 0 ){
-
-            // Selected file
-            var file = files[0];
-
-            // FileReader Object
-            var reader = new FileReader();
-
-            // Read file as string 
-            reader.readAsText(file);
-
-            // Load event
-            reader.onload = function(event) {
-
-                // Read file data
-                var csvdata = event.target.result;
-
-                // Split by line break to gets rows Array
-                var rowData = csvdata.split('\n');
-
-                // <table > <tbody>
-                var tbodyEl = document.getElementById('tblcsvdata').getElementsByTagName('tbody')[0];
-                tbodyEl.innerHTML = "";
-
-                // Loop on the row Array (change row=0 if you also want to read 1st row)
-                for (var row = 1; row < rowData.length; row++) {
-                    // Insert a row at the end of table
-                    var newRow = tbodyEl.insertRow();
-                    // Split by comma (,) to get column Array
-                    rowColData = rowData[row].split(',');
-                    // Loop on the row column Array
-                    for (var col = 0; col < rowColData.length; col++) {
-                        // Insert a cell at the end of the row
-                        var newCell = newRow.insertCell();
-                        newCell.innerHTML = rowColData[col];
-                    }
-                }
+    let allProducts = ref([]);
+    function csvToObj(csvData) {
+        const lines = csvData.split('\n');
+        const headers = lines[0].split(',');
+        const products= [];
+        for (let i = 1; i < lines.length; i++) {
+            const obj = {};
+            let values = lines[i].split(',');
+            for (let j = 0; j < headers.length; j++) {
+                obj[headers[j]] = values[j];
+            }
+            products.push(obj);
+        }
+        allProducts.value=products;
+    }
+    function handleFileUpload(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+                reader.onload = () => {
+                const csvData = reader.result;
+                csvToObj(csvData);
             };
-
-        }else{
-            alert("Please select a file.");
+            reader.readAsText(file);
         }
     }
 </script>
