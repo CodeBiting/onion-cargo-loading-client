@@ -4,7 +4,7 @@
         <Disclosure as="nav" class="bg-gray-800">
             <div class="max-w-7xl mx-auto px-4 py-2 sm:px-6 lg:px-8">
                 <div class="flex h-16 items-center justify-between">
-                    <div class="flex items-center">
+                    <div class="flex basis-5/6">
                         <div class="flex-shrink-0">
                             <img class="h-12 w-12" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Your Company" />
                         </div>
@@ -12,6 +12,9 @@
                         <div class="ml-9 flex items-baseline space-x-2">
                             <NuxtLink v-for="item in navigation" :key="item.name" :href="item.href" :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-lg font-medium']" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</NuxtLink>
                         </div>
+                    </div>
+                    <div class="flex-auto flex">
+                        <NuxtLink href="/containers/config"><Cog6ToothIcon class="text-gray-300 order-last h-8 w-8 transition-all duration-300 hover:h-9 w-9"/></NuxtLink>
                     </div>
                 </div>
             </div>
@@ -26,7 +29,7 @@
         <main class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
             <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4 shadow rounded-md">
                 <div class="sm:flex sm:items-start">
-                    <div class="mt-2 sm:ml-4 box-border w-full sm:mt-0 sm:text-left">
+                    <div class="mt-2 box-border w-full sm:mt-0 sm:text-left">
                         <slot/>
                     </div>
                 </div>
@@ -48,6 +51,7 @@
     </div>
 </template>
 <script setup>
+    import { Cog6ToothIcon } from '@heroicons/vue/24/solid'
     import { Disclosure } from '@headlessui/vue';
     const props = defineProps({
         title: String,
