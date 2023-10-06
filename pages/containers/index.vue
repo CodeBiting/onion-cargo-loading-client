@@ -1,5 +1,5 @@
 <template>
-    <headerAndFooter title="Containers" :containers=true>
+    <headerAndFooter title="Containers" containers=true data-test='headerFooter'>
         <div class="flex gap-5">
             <!--Containers-->
             <section class="flex-auto w-1/2 border-2 border-gray-200 rounded-md shadow-md">
@@ -15,7 +15,7 @@
                 </div>
                 <div class="py-2">
                     <div v-for="container in allContainer" class=" max-w-md w-full mx-auto rounded-2xl bg-white py-2">
-                        <acordeon :name="container.code">
+                        <acordeon :name="container.code" :id="container.code" :smallest.sync=" container.code == smallestContainer? true:false">
                             <div>
                                 <div class="float-right">
                                     <Disclosure v-slot="{ open }" as="div" class="w-full">
@@ -62,7 +62,7 @@
                         <div class="flex-auto">
                             <h3>Products</h3>
                         </div>
-                        <div class="felx-auto text-3xl">
+                        <div class="text-3xl">
                             <label for="products" class="py-1"><ArrowDownOnSquareIcon class="text-gray-800 cursor-pointer h-8 w-8 transition-all duration-300 hover:h-9 w-9" /></label>
                             <input type="file" id="products" name="products" accept=".csv" @change="handleFileUpload" class="hidden">    
                         </div>
@@ -85,7 +85,13 @@
             </section>
         </div>
         <br>
-        <button :onclick="findSmallest" class="bg-gray-700 text-white rounded-md px-3 py-2 text-lg transition-all duration-300 font-medium m-auto w-full hover:bg-gray-600">Find Smallest</button>
+        <button @click="findSmallest" class="bg-gray-700 text-white rounded-md px-3 py-2 text-lg transition-all duration-300 font-medium m-auto w-full hover:bg-gray-600">Find Smallest</button>
+        <div class="flex">
+            <h2></h2>
+            <div>
+
+            </div>
+        </div>
     </headerAndFooter>
     <alerts :intent="status" :show="showAlert" :on-dismiss="() => showAlert=false" :title="title">
     </alerts>
@@ -106,7 +112,8 @@
         popupTrigger.value = !popupTrigger.value;
     };
     const clientData = useCookie('clientData');
-    const serverCookie= useCookie('serverData');
+    if (!clientData.value) clientData.value={id:0};
+    //const serverCookie= useCookie('serverData');
     let allContainer = await useFetch(`http://localhost:8080/v1/client/${clientData.value.id}/containers`);
     allContainer = allContainer.data._value.data;
     let allProducts = ref([]);
@@ -138,7 +145,7 @@
     const deleteContainer= async (id) => {
         const { data: responseData } = await useFetch(`http://localhost:8080/v1/container/${id}`,{
             headers: {
-            "Content-Type": "application/json",
+                "Content-Type": "application/json",
             },
             method: 'DELETE'
         });
@@ -150,23 +157,40 @@
             location.reload();
         }else{
             status.value='danger';
-            title.value='Somthing went wrong';
+            title.value='Something went wrong';
             showAlert.value=true;
         }
     }
-    //TODO Try if it works
+    const smallestContainer = ref('');
+    //TODO si no hi ha contenidors i es fa la funció la api peta
     const findSmallest= async () => {
-        console.log(allProducts);
         const { data: responseData } = await useFetch(`http://localhost:8080/v1/container/smallest/${clientData.value.id}`,{
             headers: {
                 "Content-Type": "application/json",
             },
             method: 'POST',
-            body: {
-                allProducts
-            }
+            body: allProducts._rawValue
         });
-        console.log(responseData);
+        //console.log(responseData);
+        if(responseData._rawValue){
+            //responseData._rawValue.data.length==1
+            smallestContainer.value= responseData._rawValue.data[0].code;
+            //document.getElementById(responseData._rawValue.data[0].code);
+            status.value='success';
+            title.value=`The container you need is ${smallestContainer.value}`;
+            showAlert.value=true;
+        }else if(allProducts.value.length){
+            console.log(allProducts);
+            status.value='warning';
+            title.value='Not found any product combination that can be fit into the boxes';
+            showAlert.value=true;
+        }else{
+            console.log(allProducts);
+            status.value='danger';
+            title.value='No products imported';
+            showAlert.value=true;
+        }
+        //console.log(responseData);
     }
 </script>
 <style scoped>

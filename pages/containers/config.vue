@@ -40,9 +40,7 @@
             sameSite: false
         }
     );
-    clientCookie.id= clientCookie.id || 0;
-    clientCookie.code= clientCookie.code || '';
-    clientCookie.token= clientCookie.token || '';
+    if (!clientCookie.value) clientCookie.value={id:0,code:'',token:''};
     const serverCookie= useCookie('serverData');
     //TODO comprovar funcionament
     if(!serverCookie.value){
@@ -69,7 +67,7 @@
         if (client.data._value.data.length==1) {
             clientCookie.value = { id: client.data._value.data[0].id, code: client.data._value.data[0].code, token: client.data._value.data[0].token};
             status.value='success';
-            title.value='Loged-In';
+            title.value='Logged In';
             showAlert.value=true;
         }else{
             clientCookie.value = { id: 0, code: '', token: ''};
