@@ -75,7 +75,7 @@
             showAlert.value=true;
         }else{
             status.value='danger';
-            title.value='Somthing went wrong, look if the code alredy exists';
+            title.value='Check if the code already exists';
             showAlert.value=true;
         }
     }

@@ -79,7 +79,7 @@
             showAlert.value=true;
         }else{
             status.value='danger';
-            title.value='Somthing went wrong';
+            title.value='Something went wrong';
             showAlert.value=true;
         }
     }
