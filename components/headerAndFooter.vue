@@ -10,11 +10,11 @@
                         </div>
                         <h1 class="text-3xl font-bold tracking-tight text-gray-100 ml-2">Cargo-Loading</h1>
                         <div class="ml-9 flex items-baseline space-x-2">
-                            <NuxtLink v-for="item in navigation" :key="item.name" :href="item.href" :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-lg font-medium']" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</NuxtLink>
+                            <NuxtLink v-for="item in navigation" :key="item.name" :data-test="item.name" :href="item.href" :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'rounded-md px-3 py-2 text-lg font-medium']" :aria-current="item.current ? 'page' : undefined">{{ item.name }}</NuxtLink>
                         </div>
                     </div>
                     <div class="flex-auto flex">
-                        <NuxtLink href="/containers/config"><Cog6ToothIcon class="text-gray-300 order-last h-8 w-8 transition-all duration-300 hover:h-9 w-9"/></NuxtLink>
+                        <NuxtLink data-test='config' href="/containers/config"><Cog6ToothIcon class="text-gray-300 order-last h-8 w-8 transition-all duration-300 hover:h-9 w-9"/></NuxtLink>
                     </div>
                 </div>
             </div>

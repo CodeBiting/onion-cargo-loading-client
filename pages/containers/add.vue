@@ -1,39 +1,39 @@
 <template>
     <headerAndFooter title="Add Container">
-        <div>
+        <div data-test='addNewContainer'>
             <form @submit.prevent="post">
                 <div class="w-full">
-                        <label for="code" class="text-xl pr-2">Code:</label>
-                        <input id="code" v-model="formData.code" type="text" class="text-black placeholder-gray-600 w-100 px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-md bg-gray-200  focus:border-gray-700 focus:bg-white dark:focus:bg-gray-200 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
+                        <label for="code" data-test='codeLabel' class="text-xl pr-2">Code:</label>
+                        <input data-test='code' id="code" v-model="formData.code" type="text" class="text-black placeholder-gray-600 w-100 px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-md bg-gray-200  focus:border-gray-700 focus:bg-white dark:focus:bg-gray-200 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
                     </div>
                     <div class="w-full">
-                        <label for="description" class="text-xl pr-2">Description:</label>
-                        <input id="description" v-model="formData.description" type="text" class="text-black placeholder-gray-600 w-100 px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-md bg-gray-200  focus:border-gray-700 focus:bg-white dark:focus:bg-gray-200 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"> 
+                        <label for="description" data-test='descriptionLabel' class="text-xl pr-2">Description:</label>
+                        <input data-test='description' id="description" v-model="formData.description" type="text" class="text-black placeholder-gray-600 w-100 px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-md bg-gray-200  focus:border-gray-700 focus:bg-white dark:focus:bg-gray-200 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"> 
                     </div>
                     <label class="text-xl">Dimensions:</label>
                     <div class="w-full pl-5">
                         <div class="w-full">
-                            <label for="width" class="text-xl pr-2">Width:</label>
-                            <input id="width" v-model="formData.width" type="number" class="text-black placeholder-gray-600 w-100 px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-md bg-gray-200  focus:border-gray-700 focus:bg-white dark:focus:bg-gray-200 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"> 
+                            <label for="width" data-test='widthLabel' class="text-xl pr-2">Width:</label>
+                            <input data-test='width' id="width" v-model="formData.width" type="number" class="text-black placeholder-gray-600 w-100 px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-md bg-gray-200  focus:border-gray-700 focus:bg-white dark:focus:bg-gray-200 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400"> 
                         </div>
                         <div class="w-full">
-                            <label for="length" class="text-xl pr-2">Length</label>
-                            <input type="number" v-model="formData.length" name="" id="length" class="text-black placeholder-gray-600 w-100 px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-md bg-gray-200  focus:border-gray-700 focus:bg-white dark:focus:bg-gray-200 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
+                            <label for="length" data-test='lengthLabel' class="text-xl pr-2">Length</label>
+                            <input data-test='length' type="number" v-model="formData.length" name="" id="length" class="text-black placeholder-gray-600 w-100 px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-md bg-gray-200  focus:border-gray-700 focus:bg-white dark:focus:bg-gray-200 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
                         </div>
                         <div class="w-full">
-                            <label for="height" class="text-xl pr-2">Height</label>
-                            <input type="number" name="" v-model="formData.height" id="height" class="text-black placeholder-gray-600 w-100 px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-md bg-gray-200  focus:border-gray-700 focus:bg-white dark:focus:bg-gray-200 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
+                            <label for="height" data-test='heightLabel' class="text-xl pr-2">Height</label>
+                            <input data-test='height' type="number" name="" v-model="formData.height" id="height" class="text-black placeholder-gray-600 w-100 px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-md bg-gray-200  focus:border-gray-700 focus:bg-white dark:focus:bg-gray-200 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
                         </div>
                         <div class="w-full">
-                            <label for="maxWeight" class="text-xl pr-2">Max. Weight:</label>
-                            <input type="number" name="" v-model="formData.maxWeight" id="maxWeight" class="text-black placeholder-gray-600 w-70 px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-md bg-gray-200  focus:border-gray-700 focus:bg-white dark:focus:bg-gray-200 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
+                            <label for="maxWeight" data-test='maxWeightLabel' class="text-xl pr-2">Max. Weight:</label>
+                            <input data-test='maxWeight' type="number" name="" v-model="formData.maxWeight" id="maxWeight" class="text-black placeholder-gray-600 w-70 px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-md bg-gray-200  focus:border-gray-700 focus:bg-white dark:focus:bg-gray-200 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
                         </div>
                     </div>
-                    <button type="submit" class="py-2 bg-gray-700 text-white px-5 rounded-md mt-6 w-2/6 hover:bg-gray-500">Submit</button>
+                    <button type="submit" data-test='submitNewContainer' class="py-2 bg-gray-700 text-white px-5 rounded-md mt-6 w-2/6 hover:bg-gray-500">Submit</button>
             </form>
         </div>
     </headerAndFooter>
-    <alerts :intent="status" :show="showAlert" :on-dismiss="() => showAlert=false" :title="title">
+    <alerts :data-test='status' :intent="status" :show="showAlert" :on-dismiss="() => showAlert=false" :title="title">
     </alerts>
 </template>
 

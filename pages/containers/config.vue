@@ -1,32 +1,31 @@
 <template>
-    <headerAndFooter title="Configuration">
-        
+    <headerAndFooter title="Configuration" data-test='headerFooter'>
         <h3 class="text-2xl font-semibold">Login</h3>
         <div class="px-3 py-2 text-lg">
             <div class="w-1/4">
                 <div class="py-1 grid grid-cols-4 ">
-                    <label for="clientCode" class="">User</label>
-                    <input type="text" v-model="userData.clientCode" id="clientCode" class="col-span-3 border-2">
+                    <label for="clientCode" data-test='clientCodeLabel' class="">User</label>
+                    <input data-test='clientCode' type="text" v-model="userData.clientCode" id="clientCode" class="col-span-3 border-2">
                 </div>
                 <div class="py-1 grid grid-cols-4 ">
-                    <label for="token">Token</label>
-                    <input type="text" v-model="userData.token" id="token" class="col-span-3 border-2">
+                    <label for="token" data-test='tokenLabel'>Token</label>
+                    <input data-test='token' type="text" v-model="userData.token" id="token" class="col-span-3 border-2">
                 </div>
-                <button class="bg-gray-600 text-white px-2 py-1 rounded-md w-2/3" :onclick="getLogInClient">Apply</button>
+                <button data-test='logInClient' class="bg-gray-600 text-white px-2 py-1 rounded-md w-2/3" :onclick="getLogInClient">Apply</button>
             </div>
         </div>
         <h3 class="text-2xl font-semibold">Server</h3>
         <div class="px-3 py-2 text-lg">
             <div class="w-1/4">
                 <div class="py-1 grid grid-cols-4 ">
-                    <label for="clientCode" class="">URL</label>
-                    <input type="text" v-model="userData.serverUrl" id="clientCode" class="col-span-3 border-2">
+                    <label for="serverUrl" class="">URL</label>
+                    <input data-test='serverUrl' type="text" v-model="userData.serverUrl" id="serverUrl" class="col-span-3 border-2">
                 </div>
-                <button class="bg-gray-600 text-white px-2 py-1 rounded-md w-2/3" :onclick="setServerUrl">Apply</button>
+                <button data-test='setServerUrl' class="bg-gray-600 text-white px-2 py-1 rounded-md w-2/3" :onclick="setServerUrl">Apply</button>
             </div>
         </div>
     </headerAndFooter>
-    <alerts :intent="status" :show="showAlert" :on-dismiss="() => showAlert=false" :title="title">
+    <alerts :intent="status" :data-test='status' :show="showAlert" :on-dismiss="() => showAlert=false" :title="title">
     </alerts>
 </template>
 
@@ -42,7 +41,7 @@
     );
     if (!clientCookie.value) clientCookie.value={id:0,code:'',token:''};
     const serverCookie= useCookie('serverData');
-    //TODO comprovar funcionament
+    //TODO No implementat serverCookie per la url custom de l'api
     if(!serverCookie.value){
         serverCookie.value={url:'http://localhost:8080'}
     }
