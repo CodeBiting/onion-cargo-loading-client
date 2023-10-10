@@ -161,6 +161,7 @@ function dismiss() {
         :title="dismissLabel"
         :aria-label="dismissLabel"
         :class="closeButtonClass"
+        data-test="alertClose"
         @click="dismiss()"
       >
         <XMarkIcon class="w-6 h-6" />

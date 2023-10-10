@@ -25,15 +25,15 @@
                             <input type="number" name="" v-model="formData.height" id="height" class="text-black placeholder-gray-600 w-100 px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-md bg-gray-200  focus:border-gray-700 focus:bg-white dark:focus:bg-gray-200 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
                         </div>
                         <div class="w-full">
-                            <label for="maxWeight" class="text-xl pr-2">Max. Weight:</label>
-                            <input type="number" name="" v-model="formData.maxWeight" id="maxWeight" class="text-black placeholder-gray-600 w-70 px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-md bg-gray-200  focus:border-gray-700 focus:bg-white dark:focus:bg-gray-200 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
+                            <label for="maxWeight" data-test='maxWeightLabel' class="text-xl pr-2">Max. Weight:</label>
+                            <input data-test='maxWeight' type="number" name="" v-model="formData.maxWeight" id="maxWeight" class="text-black placeholder-gray-600 w-70 px-4 py-2.5 mt-2 text-base transition duration-500 ease-in-out transform border-transparent rounded-md bg-gray-200  focus:border-gray-700 focus:bg-white dark:focus:bg-gray-200 focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2 ring-gray-400">
                         </div>
                     </div>
-                    <button type="submit" class="py-2 bg-gray-700 text-white px-5 rounded-md mt-6 w-2/6 hover:bg-gray-500">Submit</button>
+                    <button type="submit" data-test='submitMod' class="py-2 bg-gray-700 text-white px-5 rounded-md mt-6 w-2/6 hover:bg-gray-500">Submit</button>
             </form>
         </div>
     </headerAndFooter>
-    <alerts :intent="status" :show="showAlert" :on-dismiss="() => showAlert=false" :title="title">
+    <alerts :intent="status" :data-test='status' :show="showAlert" :on-dismiss="() => showAlert=false" :title="title">
     </alerts>
 </template>
 
